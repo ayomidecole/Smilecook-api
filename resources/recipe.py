@@ -53,6 +53,16 @@ class RecipeResource(Resource):
 
         return recipe.data(), HTTPStatus.OK
 
+    def delete(self, recipe_id):
+      recipe = next((recipe for recipe in recipe_list if recipe_id == recipe_id), None)
+
+      if recipe is None:
+          return{'message', 'recipe not found'}, HTTPStatus.NOT_FOUND
+
+      recipe.is_publish = False
+
+      return {}, HTTPStatus.NO_CONTENT
+
 class RecipePublishResource(Resource):
 
     def patch(self, recipe_id):
